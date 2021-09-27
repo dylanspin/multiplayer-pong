@@ -1,6 +1,13 @@
 radio.onReceivedNumber(function (receivedNumber) {
     if (started == 1) {
-        checkSendPos(receivedNumber)
+        if (receivedNumber == 60) {
+            started = 2
+            basic.showIcon(IconNames.Yes)
+            basic.pause(2000)
+            reset()
+        } else {
+            checkSendPos(receivedNumber)
+        }
     } else if (started == 0) {
         if (receivedNumber == 20) {
             if (myStart == 1) {
@@ -59,7 +66,11 @@ function movePong () {
                 if (height == posY) {
                     comeBack = 0
                 } else {
+                    radio.sendNumber(60)
+                    started = 2
                     basic.showIcon(IconNames.No)
+                    basic.pause(2000)
+                    reset()
                 }
             } else {
                 if (posX > 0) {
@@ -82,8 +93,6 @@ input.onLogoEvent(TouchButtonEvent.Pressed, function () {
             myStart = 1
         }
         radio.sendNumber(20)
-    } else {
-    	
     }
 })
 function setHeight () {
@@ -166,8 +175,6 @@ basic.forever(function () {
                     . . # . .
                     `)
             }
-        } else {
-            basic.showIcon(IconNames.No)
         }
     } else {
         basic.showString("c")
