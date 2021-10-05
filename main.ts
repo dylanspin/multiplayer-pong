@@ -162,6 +162,7 @@ basic.forever(function () {
     if (connected > 0) {
         connected = connected - 1
         if (started == 1) {
+            led.plot(0, height)
             movePong()
         } else if (started == 0) {
             if (myStart == 1) {
